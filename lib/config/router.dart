@@ -142,6 +142,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
   void _onItemTapped(int index, BuildContext context) {
     switch (index) {
       case 0:
+        // context.go是简写
         GoRouter.of(context).go('/home');
         break;
       case 1:

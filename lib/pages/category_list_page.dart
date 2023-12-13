@@ -1,8 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class CategoryListPage extends StatelessWidget {
+class CategoryListPage extends StatefulWidget {
   const CategoryListPage({super.key});
+
+  @override
+  State<CategoryListPage> createState() => _CategoryListPageState();
+}
+
+class _CategoryListPageState extends State<CategoryListPage> {
+  // 页面的状态
+  int _counter = 0;
+
+  // 自定义的修改状态的方法
+  void _addCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +32,16 @@ class CategoryListPage extends StatelessWidget {
             const Text('Category List Page'),
             TextButton(
               onPressed: () {
-                GoRouter.of(context).pushNamed('categorylistdetail',
+                context.pushNamed('categorylistdetail',
                     pathParameters: {'id': '2'},
                     queryParameters: {'from': 'categorylist'});
               },
-              child: const Text('View Category List Detail'),
+              child: const Text('View Category List Details'),
+            ),
+            Text('$_counter'),
+            ElevatedButton(
+              onPressed: () => _addCounter(),
+              child: const Text('更新状态'),
             ),
           ],
         ),

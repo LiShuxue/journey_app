@@ -1,8 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  // 页面的状态
+  int _counter = 0;
+
+  // 自定义的修改状态的方法
+  void _addCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +32,16 @@ class HomePage extends StatelessWidget {
             const Text('Home Page'),
             TextButton(
               onPressed: () {
-                GoRouter.of(context).pushNamed('homedetail',
+                context.pushNamed('homedetail',
                     pathParameters: {'id': '1'},
                     queryParameters: {'from': 'home'});
               },
               child: const Text('View Home Details'),
+            ),
+            Text('$_counter'),
+            ElevatedButton(
+              onPressed: () => _addCounter(),
+              child: const Text('更新状态'),
             ),
           ],
         ),
