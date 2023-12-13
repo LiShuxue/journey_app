@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:journey_app/pages/detail_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -21,8 +21,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    print('home page');
     return Scaffold(
-      appBar: AppBar(),
       body: Center(
         child: Column(
           // min 尽可能少的占用主轴方向的空间。当子组件没有占满主轴剩余空间时，Row或Column的实际大小等于所有子组件占用的主轴空间。
@@ -30,13 +30,16 @@ class _HomePageState extends State<HomePage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             const Text('Home Page'),
-            TextButton(
+            ElevatedButton(
               onPressed: () {
-                context.pushNamed('homedetail',
-                    pathParameters: {'id': '1'},
-                    queryParameters: {'from': 'home'});
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          const DetailPage(id: '1', from: 'home')),
+                );
               },
-              child: const Text('View Home Details'),
+              child: const Text('Go to Home Detail'),
             ),
             Text('$_counter'),
             ElevatedButton(

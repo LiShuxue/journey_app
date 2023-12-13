@@ -11,12 +11,24 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('detail page');
     return Scaffold(
       appBar: AppBar(
         title: const Text('Detail Page'),
       ),
       body: Center(
-        child: Text('Details for $from, id: $id'),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Details for $from, id: $id'),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Go Back'),
+            ),
+          ],
+        ),
       ),
     );
   }

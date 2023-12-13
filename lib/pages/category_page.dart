@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:journey_app/pages/category_list_page.dart';
 
 class CategoryPage extends StatefulWidget {
   const CategoryPage({super.key});
@@ -21,8 +21,8 @@ class _CategoryPageState extends State<CategoryPage> {
 
   @override
   Widget build(BuildContext context) {
+    print('category page');
     return Scaffold(
-      appBar: AppBar(),
       body: Center(
         child: Column(
           // min 尽可能少的占用主轴方向的空间。当子组件没有占满主轴剩余空间时，Row或Column的实际大小等于所有子组件占用的主轴空间。
@@ -30,11 +30,15 @@ class _CategoryPageState extends State<CategoryPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             const Text('Category Page'),
-            TextButton(
+            ElevatedButton(
               onPressed: () {
-                context.push('/category/list');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const CategoryListPage()),
+                );
               },
-              child: const Text('View Category List'),
+              child: const Text('Go to Category List'),
             ),
             Text('$_counter'),
             ElevatedButton(
