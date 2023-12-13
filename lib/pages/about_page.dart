@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 
-class AboutPage extends StatelessWidget {
+class AboutPage extends StatefulWidget {
   const AboutPage({super.key});
 
   @override
+  State<AboutPage> createState() => _AboutPageState();
+}
+
+class _AboutPageState extends State<AboutPage>
+    with AutomaticKeepAliveClientMixin {
+  @override
   Widget build(BuildContext context) {
-    print('about page');
+    super.build(context);
     return const Scaffold(
       body: Center(
         child: Column(
@@ -19,4 +25,7 @@ class AboutPage extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

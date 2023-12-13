@@ -8,7 +8,8 @@ class CategoryPage extends StatefulWidget {
   State<CategoryPage> createState() => _CategoryPageState();
 }
 
-class _CategoryPageState extends State<CategoryPage> {
+class _CategoryPageState extends State<CategoryPage>
+    with AutomaticKeepAliveClientMixin {
   // 页面的状态
   int _counter = 0;
 
@@ -21,7 +22,7 @@ class _CategoryPageState extends State<CategoryPage> {
 
   @override
   Widget build(BuildContext context) {
-    print('category page');
+    super.build(context);
     return Scaffold(
       body: Center(
         child: Column(
@@ -50,4 +51,7 @@ class _CategoryPageState extends State<CategoryPage> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

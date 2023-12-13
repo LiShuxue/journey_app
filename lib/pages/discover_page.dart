@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 
-class DiscoverPage extends StatelessWidget {
+class DiscoverPage extends StatefulWidget {
   const DiscoverPage({super.key});
 
   @override
+  State<DiscoverPage> createState() => _DiscoverPageState();
+}
+
+class _DiscoverPageState extends State<DiscoverPage>
+    with AutomaticKeepAliveClientMixin {
+  @override
   Widget build(BuildContext context) {
-    print('discover page');
+    super.build(context);
     return const Scaffold(
       body: Center(
         child: Column(
@@ -19,4 +25,7 @@ class DiscoverPage extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

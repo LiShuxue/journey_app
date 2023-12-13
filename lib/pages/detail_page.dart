@@ -11,7 +11,6 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('detail page');
     return Scaffold(
       appBar: AppBar(
         title: const Text('Detail Page'),

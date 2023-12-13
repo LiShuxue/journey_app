@@ -21,7 +21,6 @@ class _CategoryListPageState extends State<CategoryListPage> {
 
   @override
   Widget build(BuildContext context) {
-    print('category list page');
     return Scaffold(
       appBar: AppBar(
         title: const Text('Category'),
