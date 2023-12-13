@@ -56,6 +56,13 @@ class _MainPageState extends State<MainPage> {
     });
   }
 
+  // 当页面切换时，可能是点击导航栏切换的，也可能是左右滑动切换的
+  void _onPageChanged(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,6 +72,7 @@ class _MainPageState extends State<MainPage> {
       body: PageView(
         controller: _pageController,
         children: _pages,
+        onPageChanged: (int index) => _onPageChanged(index),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed, // 底部按钮超过3个需要设置这个
