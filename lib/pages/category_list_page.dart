@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class CategoryListPage extends StatelessWidget {
+  const CategoryListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,14 +14,14 @@ class HomePage extends StatelessWidget {
           // max 尽可能多的占用主轴方向的空间。如果子组件没有占满主轴剩余空间，那么剩余的空间会均匀分布在子组件之间。
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text('Home Page'),
+            const Text('Category List Page'),
             TextButton(
               onPressed: () {
-                GoRouter.of(context).pushNamed('homedetail',
-                    pathParameters: {'id': '1'},
-                    queryParameters: {'from': 'home'});
+                GoRouter.of(context).pushNamed('categorylistdetail',
+                    pathParameters: {'id': '2'},
+                    queryParameters: {'from': 'categorylist'});
               },
-              child: const Text('View Home Details'),
+              child: const Text('View Category List Detail'),
             ),
           ],
         ),
