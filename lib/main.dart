@@ -18,6 +18,16 @@ class MainApp extends StatelessWidget {
       title: 'Journey',
       theme: ThemeData(
         useMaterial3: true, // 启用Material 3
+        // 根据蓝色用算法生成一个ColorScheme对象，其中包含了一组颜色。这些颜色可以自动用于应用程序中的一些组件，例如按钮，checkbox等，以保持一致的主题风格。
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        // 顶部栏颜色
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.blue.shade100,
+        ),
+        // 底部栏颜色
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: Colors.blue.shade100,
+        ),
       ),
       home: const MainPage(),
     );
