@@ -5,7 +5,10 @@ import 'package:journey_app/pages/category_page.dart';
 import 'package:journey_app/pages/discover_page.dart';
 import 'package:journey_app/pages/about_page.dart';
 
+import 'package:journey_app/utils/dio_config.dart';
+
 void main() {
+  dioConfig();
   runApp(const MainApp());
 }
 
