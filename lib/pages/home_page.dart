@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:journey_app/pages/detail_page.dart';
 import 'package:journey_app/utils/dio_config.dart';
+import 'package:card_swiper/card_swiper.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -57,25 +58,38 @@ class _HomePageState extends State<HomePage>
               itemBuilder: (context, index) {
                 if (index == 0) {
                   // 第一项是swiper
-                  return const Column(
+                  return Column(
                     children: [
                       SizedBox(
-                        height: 200, // 设置Swiper的高度
-                        child: Text('滑块'),
+                        height: 150, // 设置Swiper的高度
+                        child: Swiper(
+                          autoplay: true,
+                          pagination: const SwiperPagination(),
+                          itemCount: 3,
+                          itemHeight: 150,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              color: Colors.grey,
+                              child: Center(
+                                child: Text("$index"),
+                              ),
+                            );
+                          },
+                        ),
                       ),
-                      SizedBox(height: 10), // 添加10像素的垂直空间
+                      const SizedBox(height: 10), // 添加10像素的垂直空间
                     ],
                   );
-                } else if (index == _articles.length) {
-                  final article = _articles[index - 1];
-                  // 最后一项包含加载中
+                } else if (index < _articles.length) {
+                  final article = _articles[index];
                   return GestureDetector(
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                DetailPage(id: article['_id'], from: 'home')),
+                          builder: (context) =>
+                              DetailPage(id: article['_id'], from: 'home'),
+                        ),
                       );
                     },
                     child: Column(
@@ -93,40 +107,15 @@ class _HomePageState extends State<HomePage>
                           subtitle: Text(article['subTitle']),
                         ),
                         const Divider(),
-                        const Text('到底了~'),
-                        const SizedBox(height: 10),
                       ],
                     ),
                   );
                 } else {
-                  // 其他项正常展示
-                  final article = _articles[index - 1]; // 获取文章
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                DetailPage(id: article['_id'], from: 'home')),
-                      );
-                    },
-                    child: Column(
-                      children: <Widget>[
-                        ListTile(
-                          leading: SizedBox(
-                            width: 100, // 设置图片宽度
-                            height: 50, // 设置图片高度
-                            child: Image.network(
-                              article['image']['url'], // 替换为您的图片URL
-                              fit: BoxFit.cover, // 根据需要设置图片适应方式
-                            ),
-                          ),
-                          title: Text(article['title']),
-                          subtitle: Text(article['subTitle']),
-                        ),
-                        const Divider(),
-                      ],
-                    ),
+                  return const Column(
+                    children: <Widget>[
+                      Text('到底了~'),
+                      SizedBox(height: 10),
+                    ],
                   );
                 }
               },
