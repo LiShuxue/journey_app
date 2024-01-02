@@ -13,7 +13,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with AutomaticKeepAliveClientMixin {
+  // 所有文章
   List _articles = [];
+  // 最新的前10条
+  List _latestArticles = [];
   bool _isLoading = false;
 
   @override
@@ -30,13 +33,17 @@ class _HomePageState extends State<HomePage>
 
       Response response = await dio.get('/blog-api/blog/list');
       List<dynamic> list = response.data['blogList'];
+      List<dynamic> latestArticles = list.sublist(0, 10);
 
       setState(() {
         _articles = list;
+        _latestArticles = latestArticles;
         _isLoading = false;
       });
     } on DioException catch (e) {
       setState(() {
+        _articles = [];
+        _latestArticles = [];
         _isLoading = false;
       });
     }
@@ -63,13 +70,25 @@ class _HomePageState extends State<HomePage>
                         child: Swiper(
                           autoplay: true,
                           pagination: const SwiperPagination(),
-                          itemCount: 3,
+                          itemCount: _latestArticles.length,
                           itemHeight: 150,
                           itemBuilder: (context, index) {
-                            return Container(
-                              color: Colors.grey,
-                              child: Center(
-                                child: Text("$index"),
+                            final article = _latestArticles[index];
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => DetailPage(
+                                        id: article['_id'], from: 'home'),
+                                  ),
+                                );
+                              },
+                              child: Image.network(
+                                article['image']['url'], // 图片URL
+                                // BoxFit.fill：图片会被拉伸以填充整个容器，可能会导致图片的宽高比发生变化，从而使图片看起来变形。
+                                // BoxFit.cover：图片会按照其原始宽高比进行缩放，以便完全覆盖整个容器，可能会导致图片的一部分被裁剪掉，但不会发生变形。
+                                fit: BoxFit.fill,
                               ),
                             );
                           },
@@ -102,8 +121,10 @@ class _HomePageState extends State<HomePage>
                                   width: 100, // 设置图片宽度
                                   height: 50, // 设置图片高度
                                   child: Image.network(
-                                    article['image']['url'], // 替换为您的图片URL
-                                    fit: BoxFit.cover, // 根据需要设置图片适应方式
+                                    article['image']['url'], // 图片URL
+                                    // BoxFit.fill：图片会被拉伸以填充整个容器，可能会导致图片的宽高比发生变化，从而使图片看起来变形。
+                                    // BoxFit.cover：图片会按照其原始宽高比进行缩放，以便完全覆盖整个容器，可能会导致图片的一部分被裁剪掉，但不会发生变形。
+                                    fit: BoxFit.fill,
                                   ),
                                 ),
                                 title: Text(article['title']),
