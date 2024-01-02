@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:journey_app/pages/category_list_page.dart';
 import 'package:journey_app/pages/detail_page.dart';
 import 'package:journey_app/utils/dio_config.dart';
 import 'package:card_swiper/card_swiper.dart';
@@ -49,6 +50,7 @@ class _HomePageState extends State<HomePage>
     }
   }
 
+  // 进详情页
   void gotoDetailPage(article) {
     Navigator.push(
       context,
@@ -56,6 +58,31 @@ class _HomePageState extends State<HomePage>
         builder: (context) => DetailPage(id: article['_id'], from: 'home'),
       ),
     );
+  }
+
+  // 文章点赞
+  void likeArticle(article) async {
+    try {
+      await dio.post('/blog-api/blog/like', data: {
+        'id': article['_id'],
+        'isLiked': true,
+      });
+
+      // 本地文章加一或者减一
+      int index = _articles.indexWhere((item) => item['_id'] == article['_id']);
+      if (index != -1) {
+        // 创建一个新的文章对象，复制原有的属性
+        Map<String, dynamic> newArticle = Map.from(article);
+        // 修改新文章对象的'like'属性值
+        newArticle['like'] = article['like'] + 1;
+        // 替换原来的文章对象
+        _articles[index] = newArticle;
+        // 通知Flutter框架_state已经改变
+        setState(() {
+          _articles = List.from(_articles);
+        });
+      }
+    } on DioException catch (e) {}
   }
 
   @override
@@ -169,8 +196,7 @@ class _HomePageState extends State<HomePage>
                                       // 点赞次数
                                       GestureDetector(
                                         onTap: () {
-                                          // 处理查看次数的点击事件
-                                          print('dianzan');
+                                          likeArticle(article);
                                         },
                                         child: Row(
                                           children: [
@@ -186,8 +212,12 @@ class _HomePageState extends State<HomePage>
                                       // 文章分类
                                       GestureDetector(
                                         onTap: () {
-                                          // 处理查看次数的点击事件
-                                          print('fenlei');
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const CategoryListPage()),
+                                          );
                                         },
                                         child: Row(
                                           children: [
