@@ -49,6 +49,15 @@ class _HomePageState extends State<HomePage>
     }
   }
 
+  void gotoDetailPage(article) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DetailPage(id: article['_id'], from: 'home'),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -76,13 +85,7 @@ class _HomePageState extends State<HomePage>
                             final article = _latestArticles[index];
                             return GestureDetector(
                               onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => DetailPage(
-                                        id: article['_id'], from: 'home'),
-                                  ),
-                                );
+                                gotoDetailPage(article);
                               },
                               child: Image.network(
                                 article['image']['url'], // 图片URL
@@ -104,20 +107,14 @@ class _HomePageState extends State<HomePage>
                     (context, index) {
                       if (index < _articles.length) {
                         final article = _articles[index];
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => DetailPage(
-                                    id: article['_id'], from: 'home'),
-                              ),
-                            );
-                          },
-                          child: Column(
-                            children: <Widget>[
-                              ListTile(
-                                leading: SizedBox(
+                        return Column(
+                          children: [
+                            ListTile(
+                              leading: GestureDetector(
+                                onTap: () {
+                                  gotoDetailPage(article);
+                                },
+                                child: SizedBox(
                                   width: 100, // 设置图片宽度
                                   height: 50, // 设置图片高度
                                   child: Image.network(
@@ -127,16 +124,91 @@ class _HomePageState extends State<HomePage>
                                     fit: BoxFit.fill,
                                   ),
                                 ),
-                                title: Text(article['title']),
-                                subtitle: Text(article['subTitle']),
                               ),
-                              const Divider(),
-                            ],
-                          ),
+                              title: GestureDetector(
+                                onTap: () {
+                                  gotoDetailPage(article);
+                                },
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(article['title']),
+                                    const SizedBox(height: 10),
+                                  ],
+                                ),
+                              ),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      gotoDetailPage(article);
+                                    },
+                                    child: Text(article['subTitle']),
+                                  ),
+
+                                  const SizedBox(height: 10), // 添加垂直间距
+                                  Row(
+                                    children: [
+                                      // 查看次数
+                                      GestureDetector(
+                                        onTap: () {
+                                          gotoDetailPage(article);
+                                        },
+                                        child: Row(
+                                          children: [
+                                            const Icon(Icons.visibility,
+                                                size: 14),
+                                            const SizedBox(width: 4),
+                                            Text('${article['see']}'),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(width: 25),
+
+                                      // 点赞次数
+                                      GestureDetector(
+                                        onTap: () {
+                                          // 处理查看次数的点击事件
+                                          print('dianzan');
+                                        },
+                                        child: Row(
+                                          children: [
+                                            const Icon(Icons.thumb_up,
+                                                size: 14),
+                                            const SizedBox(width: 4),
+                                            Text('${article['like']}'),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(width: 25),
+
+                                      // 文章分类
+                                      GestureDetector(
+                                        onTap: () {
+                                          // 处理查看次数的点击事件
+                                          print('fenlei');
+                                        },
+                                        child: Row(
+                                          children: [
+                                            const Icon(Icons.category,
+                                                size: 14),
+                                            const SizedBox(width: 4),
+                                            Text(article['category']),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const Divider(),
+                          ],
                         );
                       } else {
                         return const Column(
-                          children: <Widget>[
+                          children: [
                             Text('到底了~'),
                             SizedBox(height: 10),
                           ],
