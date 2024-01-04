@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:journey_app/pages/home_page.dart';
 import 'package:journey_app/pages/category_page.dart';
@@ -6,10 +7,18 @@ import 'package:journey_app/pages/discover_page.dart';
 import 'package:journey_app/pages/about_page.dart';
 
 import 'package:journey_app/utils/dio_config.dart';
+import 'package:journey_app/model/blog_list_model.dart';
 
 void main() {
   dioConfig();
-  runApp(const MainApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => BlogListModel()),
+      ],
+      child: const MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {

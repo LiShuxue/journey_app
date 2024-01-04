@@ -1,9 +1,11 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:card_swiper/card_swiper.dart';
+import 'package:provider/provider.dart';
+
 import 'package:journey_app/pages/category_list_page.dart';
 import 'package:journey_app/pages/detail_page.dart';
-import 'package:journey_app/utils/dio_config.dart';
-import 'package:card_swiper/card_swiper.dart';
+
+import 'package:journey_app/model/blog_list_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,40 +16,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with AutomaticKeepAliveClientMixin {
-  // 所有文章
-  List _articles = [];
-  // 最新的前10条
-  List _latestArticles = [];
-  bool _isLoading = false;
-
   @override
   void initState() {
     super.initState();
-    _loadArticles();
-  }
 
-  void _loadArticles() async {
-    try {
-      setState(() {
-        _isLoading = true;
-      });
-
-      Response response = await dio.get('/blog-api/blog/list');
-      List<dynamic> list = response.data['blogList'];
-      List<dynamic> latestArticles = list.sublist(0, 10);
-
-      setState(() {
-        _articles = list;
-        _latestArticles = latestArticles;
-        _isLoading = false;
-      });
-    } on DioException catch (e) {
-      setState(() {
-        _articles = [];
-        _latestArticles = [];
-        _isLoading = false;
-      });
-    }
+    Provider.of<BlogListModel>(context, listen: false).getBlogList();
   }
 
   // 进详情页
@@ -61,36 +34,17 @@ class _HomePageState extends State<HomePage>
   }
 
   // 文章点赞
-  void likeArticle(article) async {
-    try {
-      await dio.post('/blog-api/blog/like', data: {
-        'id': article['_id'],
-        'isLiked': true,
-      });
-
-      // 本地文章加一或者减一
-      int index = _articles.indexWhere((item) => item['_id'] == article['_id']);
-      if (index != -1) {
-        // 创建一个新的文章对象，复制原有的属性
-        Map<String, dynamic> newArticle = Map.from(article);
-        // 修改新文章对象的'like'属性值
-        newArticle['like'] = article['like'] + 1;
-        // 替换原来的文章对象
-        _articles[index] = newArticle;
-        // 通知Flutter框架_state已经改变
-        setState(() {
-          _articles = List.from(_articles);
-        });
-      }
-    } on DioException catch (e) {}
+  likeArticle(article) {
+    Provider.of<BlogListModel>(context, listen: false).addLike(article);
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    final blogListModel = Provider.of<BlogListModel>(context, listen: true);
     return Scaffold(
       // 自定义滚动
-      body: _isLoading
+      body: blogListModel.isLoading
           ? const Center(
               child: CircularProgressIndicator(),
             )
@@ -106,10 +60,10 @@ class _HomePageState extends State<HomePage>
                         child: Swiper(
                           autoplay: true,
                           pagination: const SwiperPagination(),
-                          itemCount: _latestArticles.length,
+                          itemCount: blogListModel.newBlogList.length,
                           itemHeight: 150,
                           itemBuilder: (context, index) {
-                            final article = _latestArticles[index];
+                            final article = blogListModel.newBlogList[index];
                             return GestureDetector(
                               onTap: () {
                                 gotoDetailPage(article);
@@ -132,8 +86,8 @@ class _HomePageState extends State<HomePage>
                 SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
-                      if (index < _articles.length) {
-                        final article = _articles[index];
+                      if (index < blogListModel.blogList.length) {
+                        final article = blogListModel.blogList[index];
                         return Column(
                           children: [
                             ListTile(
@@ -173,8 +127,8 @@ class _HomePageState extends State<HomePage>
                                     },
                                     child: Text(article['subTitle']),
                                   ),
-
                                   const SizedBox(height: 10), // 添加垂直间距
+
                                   Row(
                                     children: [
                                       // 查看次数
@@ -245,7 +199,8 @@ class _HomePageState extends State<HomePage>
                         );
                       }
                     },
-                    childCount: _articles.length + 1, // 加1 是因为最后一项是“到底了~”
+                    childCount:
+                        blogListModel.blogList.length + 1, // 加1 是因为最后一项是“到底了~”
                   ),
                 ),
               ],
