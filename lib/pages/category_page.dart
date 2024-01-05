@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:journey_app/pages/category_list_page.dart';
+import 'package:journey_app/model/blog_list_model.dart';
 
 class CategoryPage extends StatefulWidget {
   const CategoryPage({super.key});
@@ -10,44 +13,81 @@ class CategoryPage extends StatefulWidget {
 
 class _CategoryPageState extends State<CategoryPage>
     with AutomaticKeepAliveClientMixin {
-  // 页面的状态
-  int _counter = 0;
-
-  // 自定义的修改状态的方法
-  void _addCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    final blogListModel = Provider.of<BlogListModel>(context, listen: true);
+
     return Scaffold(
-      body: Center(
-        child: Column(
-          // min 尽可能少的占用主轴方向的空间。当子组件没有占满主轴剩余空间时，Row或Column的实际大小等于所有子组件占用的主轴空间。
-          // max 尽可能多的占用主轴方向的空间。如果子组件没有占满主轴剩余空间，那么剩余的空间会均匀分布在子组件之间。
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text('Category Page'),
-            ElevatedButton(
-              onPressed: () {
+      body: ListView.builder(
+        itemCount: blogListModel.categoryList.length + 1,
+        itemBuilder: (context, index) {
+          if (index == 0) {
+            return Column(
+              children: [
+                Container(
+                  height: 80,
+                  alignment: Alignment.center, // 设置子元素上下左右居中
+                  padding: const EdgeInsets.only(left: 16),
+                  margin: const EdgeInsets.only(bottom: 10),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                          width: 0.5, color: Colors.grey[600]!), // 设置底部边框的宽度和颜色
+                    ),
+                  ),
+                  child: Align(
+                    alignment: Alignment.centerLeft, // 文本左对齐
+                    child: Text(
+                      '知识要靠一点一滴的积累',
+                      style: TextStyle(
+                          fontSize: 20, // 设置字体大小为20
+                          fontWeight: FontWeight.bold, // 设置字体为粗体
+                          color: Colors.grey[600]),
+                    ),
+                  ),
+                ),
+                // const Divider(),
+              ],
+            );
+          } else {
+            final category = blogListModel.categoryList[index - 1];
+            return GestureDetector(
+              onTap: () {
                 Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const CategoryListPage()),
-                );
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CategoryListPage(),
+                    ));
               },
-              child: const Text('Go to Category List'),
-            ),
-            Text('$_counter'),
-            ElevatedButton(
-              onPressed: () => _addCounter(),
-              child: const Text('更新状态'),
-            ),
-          ],
-        ),
+              child: Column(
+                children: [
+                  ListTile(
+                    leading: SizedBox(
+                      width: 100,
+                      height: 50,
+                      child: category['url'].isEmpty
+                          ? const Placeholder()
+                          : Image.network(
+                              category['url'],
+                              fit: BoxFit.fill,
+                            ),
+                    ),
+                    title: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('${category['title']}'),
+                        const SizedBox(height: 10),
+                      ],
+                    ),
+                    subtitle: Text('共${category['list'].length}篇文章'),
+                  ),
+                  const Divider(),
+                ],
+              ),
+            );
+          }
+        },
       ),
     );
   }

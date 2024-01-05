@@ -12,15 +12,33 @@ class BlogListModel extends ChangeNotifier {
   // 外部获取博客列表，返回一个不可修改的
   get blogList => UnmodifiableListView(_blogList);
 
-  // 所有类别categoryList
-  get categoryList {
-    // 使用Set来去除重复的分类
-    Set<String> categories = {};
+  // 按类别聚合
+  List<Map<String, dynamic>> get categoryList {
+    Map<String, List<dynamic>> categoryMap = {};
+
     for (var blog in _blogList) {
-      categories.add(blog['category']);
+      String category = blog['category'];
+      if (categoryMap.containsKey(category)) {
+        categoryMap[category]!.add(blog);
+      } else {
+        categoryMap[category] = [blog];
+      }
     }
-    // 返回一个分类列表
-    return categories.toList();
+
+    Map<String, String> categoryUrlMap = {
+      'Flutter': 'https://cdn.lishuxue.site/blog/image/Flutter/flutter.png',
+    };
+
+    List<Map<String, dynamic>> result = [];
+    categoryMap.forEach((category, list) {
+      result.add({
+        'title': category,
+        'list': UnmodifiableListView(list),
+        'url': categoryUrlMap[category] ?? '',
+      });
+    });
+
+    return result;
   }
 
   // 最新10篇文章newBlogList
