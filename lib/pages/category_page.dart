@@ -20,7 +20,7 @@ class _CategoryPageState extends State<CategoryPage>
 
     return Scaffold(
       body: ListView.builder(
-        itemCount: blogListModel.categoryList.length + 1,
+        itemCount: blogListModel.categoryList.length + 1, // 加1 是因为第一项是特殊的
         itemBuilder: (context, index) {
           if (index == 0) {
             return Column(

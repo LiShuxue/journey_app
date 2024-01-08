@@ -25,10 +25,6 @@ class BlogListModel extends ChangeNotifier {
       }
     }
 
-    Map<String, String> categoryUrlMap = {
-      'Flutter': 'https://cdn.lishuxue.site/blog/image/Flutter/flutter.png',
-    };
-
     List<Map<String, dynamic>> result = [];
     categoryMap.forEach((category, list) {
       result.add({

@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage>
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => DetailPage(id: article['_id'], from: 'home'),
+        builder: (context) => DetailPage(id: article['_id']),
       ),
     );
   }
