@@ -170,7 +170,9 @@ class _HomePageState extends State<HomePage>
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    const CategoryListPage()),
+                                                    CategoryListPage(
+                                                        title: article[
+                                                            'category'])),
                                           );
                                         },
                                         child: Row(

@@ -2,28 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:journey_app/pages/detail_page.dart';
 
 class CategoryListPage extends StatefulWidget {
-  const CategoryListPage({super.key});
+  const CategoryListPage({required this.title, super.key});
+
+  // 路径参数：获取title。在_State类中，你可以使用widget.title来获取传入的参数值。
+  final String title;
 
   @override
   State<CategoryListPage> createState() => _CategoryListPageState();
 }
 
 class _CategoryListPageState extends State<CategoryListPage> {
-  // 页面的状态
-  int _counter = 0;
-
-  // 自定义的修改状态的方法
-  void _addCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Category'),
+        title: Text(widget.title),
       ),
       body: Center(
         child: Column(
@@ -42,11 +35,6 @@ class _CategoryListPageState extends State<CategoryListPage> {
                 );
               },
               child: const Text('Go to Category List Detail'),
-            ),
-            Text('$_counter'),
-            ElevatedButton(
-              onPressed: () => _addCounter(),
-              child: const Text('更新状态'),
             ),
           ],
         ),

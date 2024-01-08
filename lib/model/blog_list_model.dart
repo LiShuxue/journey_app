@@ -34,7 +34,8 @@ class BlogListModel extends ChangeNotifier {
       result.add({
         'title': category,
         'list': UnmodifiableListView(list),
-        'url': categoryUrlMap[category] ?? '',
+        'url':
+            'https://cdn.lishuxue.site/blog/image/${category}/categoryImage.png',
       });
     });
 

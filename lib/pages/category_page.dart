@@ -57,7 +57,8 @@ class _CategoryPageState extends State<CategoryPage>
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const CategoryListPage(),
+                      builder: (context) =>
+                          CategoryListPage(title: category['title']),
                     ));
               },
               child: Column(
@@ -66,12 +67,10 @@ class _CategoryPageState extends State<CategoryPage>
                     leading: SizedBox(
                       width: 100,
                       height: 50,
-                      child: category['url'].isEmpty
-                          ? const Placeholder()
-                          : Image.network(
-                              category['url'],
-                              fit: BoxFit.fill,
-                            ),
+                      child: Image.network(
+                        category['url'],
+                        fit: BoxFit.fill,
+                      ),
                     ),
                     title: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
