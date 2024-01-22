@@ -64,23 +64,22 @@ android {
     }
 
     // 指定用于签署应用程序的密钥库文件、密钥别名、密码等信息。
-    // 当你开发和测试应用程序时，可以自己创建一个 keystore 文件来签署应用程序。这个过程通常包括使用 Java 的 keytool 工具生成密钥对，并将它们存储在 keystore 文件中。
-    // 在发布应用程序时，通常建议使用由认可的证书颁发机构签发的证书进行签名。
-    // signingConfigs {
-    //     release {
-    //         storeFile file('path/to/your/keystore.jks')
-    //         storePassword 'your_keystore_password'
-    //         keyAlias 'your_key_alias'
-    //         keyPassword 'your_key_password'
-    //     }
-    // }
+    // 可以自己创建一个 keystore 文件来签署应用程序。
+    signingConfigs {
+        release {
+            storeFile file('../journey.keystore')
+            storePassword 'journey'
+            keyAlias 'journey'
+            keyPassword 'journey'
+        }
+    }
 
     // 配置不同的构建类型，例如 release 和 debug
     buildTypes {
         release {
             // minifyEnabled true // 是否启用代码混淆和压缩。
             // proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro' // 指定 ProGuard 配置文件的路径
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
         }
         debug {
             // 为应用程序的 applicationId 添加一个后缀。在同一设备上同时安装 release 版本和 debug 版本的应用程序，使用不同的 applicationId 后缀，可以确保两个版本的应用程序互不冲突。
