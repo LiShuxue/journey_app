@@ -1,3 +1,6 @@
+// 项目初始化的时候执行setting.gradle
+
+// pluginManagement 配置和管理构建脚本自身需要使用的 Gradle 插件，以及下载插件的仓库地址。
 pluginManagement {
     def flutterSdkPath = {
         def properties = new Properties()
@@ -16,11 +19,13 @@ pluginManagement {
         gradlePluginPortal()
     }
 
+    // 用于声明并配置构建脚本自身所需的 Gradle 插件。
     plugins {
         id "dev.flutter.flutter-gradle-plugin" version "1.0.0" apply false
     }
 }
 
+// 用于声明和配置项目中的实际使用的插件
 plugins {
     id "dev.flutter.flutter-plugin-loader" version "1.0.0"
     id "com.android.application" version "7.3.0" apply false

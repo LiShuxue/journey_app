@@ -1,4 +1,8 @@
+// 项目级别的配置文件，配置一些通用的
+
+// buildscript 指定构建脚本需要的插件和其他工具的版本，以及从哪些仓库获取这些依赖项。这些仓库只对构建脚本自身的依赖项生效，对于项目中的模块或子项目的依赖项并不生效。
 buildscript {
+    // ext 是 Gradle 中的一种扩展机制，允许你在 build.gradle 文件中定义额外的属性。通过ext定义的属性，可以在同一个build.gradle文件的任何位置使用。
     ext.kotlin_version = '1.7.10'
     repositories {
         google()
@@ -10,6 +14,7 @@ buildscript {
     }
 }
 
+// 配置所有项目（包括主项目和子项目）的通用设置。包括仓库。
 allprojects {
     repositories {
         google()
@@ -17,14 +22,19 @@ allprojects {
     }
 }
 
+// 在 Gradle 构建脚本中，rootProject 是一个默认存在的变量，通过 rootProject 访问了根项目，并配置了根项目的构建目录。
 rootProject.buildDir = '../build'
+
+// subprojects 用于指定所有子项目的通用设置，它可以出现多次，每次都会应用到所有子项目中。
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
 subprojects {
+    // 指定所有子项目在进行评估（evaluation）时依赖于 ':app' 项目的评估。在 Gradle 中，"评估"（evaluation）是指 Gradle 构建脚本的解析和执行过程。
     project.evaluationDependsOn(':app')
 }
 
+// 注册了一个名为 "clean" 的自定义任务，这个任务是由 Delete 类提供的。可以通过 " ./gradlew clean "来执行该任务
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }

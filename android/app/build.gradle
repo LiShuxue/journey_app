@@ -1,4 +1,8 @@
+// 模块级别的配置文件，关于应用程序构建的详细配置。
+
+// 配置子项目中使用的插件
 plugins {
+    // 用于配置 Android 应用程序的构建。
     id "com.android.application"
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
@@ -23,39 +27,64 @@ if (flutterVersionName == null) {
 }
 
 android {
+    // 设置了 Android 命名空间，通常用于生成 R 类的包名。
     namespace "site.lishuxue.journey_app"
+    // 指定在构建（编译）你的应用程序时使用的 Android SDK 版本。也可以用 compileSdk
     compileSdkVersion flutter.compileSdkVersion
+    // 使用的 NDK 版本的属性，NDK（Native Development Kit）是用于开发 Android 应用中的本地代码（C/C++）的工具包。
     ndkVersion flutter.ndkVersion
 
+    // 设置 Java 编译选项，包括源代码和目标兼容性。
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    // 设置 Kotlin 编译选项，包括 JVM 目标版本。
     kotlinOptions {
         jvmTarget = '1.8'
     }
 
+    // sourceSets 可以用于指定不同类型的源代码，例如主要的应用程序代码、普通java测试代码、Android 集成测试代码等。
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
+    // 提供应用程序的基本配置信息
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        // APP 的唯一标识，也是包名。
         applicationId "site.lishuxue.journey_app"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion flutter.minSdkVersion
-        targetSdkVersion flutter.targetSdkVersion
-        versionCode flutterVersionCode.toInteger()
+        // 支持的最低 API Level，如指定 23，代表低于 Android 6 的机型不能使用这个 APP。
+        minSdkVersion flutter.minSdkVersion 
+        // 指该 APP 在运行时所针对的 Android 平台的版本。具体来说，它告诉 Android 系统你的应用程序在这个版本被设计和测试的，也就是可以充分利用这个版本的特性。
+        targetSdkVersion flutter.targetSdkVersion 
+        // versionCode 和 versionName：指版本号和版本名称。
+        versionCode flutterVersionCode.toInteger() 
         versionName flutterVersionName
     }
 
+    // 指定用于签署应用程序的密钥库文件、密钥别名、密码等信息。
+    // 当你开发和测试应用程序时，可以自己创建一个 keystore 文件来签署应用程序。这个过程通常包括使用 Java 的 keytool 工具生成密钥对，并将它们存储在 keystore 文件中。
+    // 在发布应用程序时，通常建议使用由认可的证书颁发机构签发的证书进行签名。
+    // signingConfigs {
+    //     release {
+    //         storeFile file('path/to/your/keystore.jks')
+    //         storePassword 'your_keystore_password'
+    //         keyAlias 'your_key_alias'
+    //         keyPassword 'your_key_password'
+    //     }
+    // }
+
+    // 配置不同的构建类型，例如 release 和 debug
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
+            // minifyEnabled true // 是否启用代码混淆和压缩。
+            // proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro' // 指定 ProGuard 配置文件的路径
             signingConfig signingConfigs.debug
+        }
+        debug {
+            // 为应用程序的 applicationId 添加一个后缀。在同一设备上同时安装 release 版本和 debug 版本的应用程序，使用不同的 applicationId 后缀，可以确保两个版本的应用程序互不冲突。
+            applicationIdSuffix ".debug" 
         }
     }
 }
