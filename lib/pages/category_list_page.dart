@@ -58,10 +58,10 @@ class _CategoryListPageState extends State<CategoryListPage> {
                     },
                     child: SizedBox(
                       width: 100, // 设置图片宽度
-                      height: 50, // 设置图片高度
+                      height: 70, // 设置图片高度
                       child: Image.network(
                         article['image']['url'], // 图片URL
-                        fit: BoxFit.fill,
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
@@ -73,7 +73,6 @@ class _CategoryListPageState extends State<CategoryListPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(article['title']),
-                        const SizedBox(height: 10),
                       ],
                     ),
                   ),
@@ -86,7 +85,7 @@ class _CategoryListPageState extends State<CategoryListPage> {
                         },
                         child: Text(article['subTitle']),
                       ),
-                      const SizedBox(height: 10), // 添加垂直间距
+                      const SizedBox(height: 5), // 添加垂直间距
 
                       Row(
                         children: [
@@ -123,7 +122,9 @@ class _CategoryListPageState extends State<CategoryListPage> {
                     ],
                   ),
                 ),
-                const Divider(),
+                const Divider(
+                  height: 4,
+                ),
               ],
             );
           }),

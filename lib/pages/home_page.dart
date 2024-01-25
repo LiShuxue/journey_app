@@ -78,7 +78,6 @@ class _HomePageState extends State<HomePage>
                           },
                         ),
                       ),
-                      const SizedBox(height: 10), // 添加10像素的垂直空间
                     ],
                   ),
                 ),
@@ -97,12 +96,12 @@ class _HomePageState extends State<HomePage>
                                 },
                                 child: SizedBox(
                                   width: 100, // 设置图片宽度
-                                  height: 50, // 设置图片高度
+                                  height: 70, // 设置图片高度
                                   child: Image.network(
                                     article['image']['url'], // 图片URL
                                     // BoxFit.fill：图片会被拉伸以填充整个容器，可能会导致图片的宽高比发生变化，从而使图片看起来变形。
                                     // BoxFit.cover：图片会按照其原始宽高比进行缩放，以便完全覆盖整个容器，可能会导致图片的一部分被裁剪掉，但不会发生变形。
-                                    fit: BoxFit.fill,
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
                               ),
@@ -114,7 +113,6 @@ class _HomePageState extends State<HomePage>
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(article['title']),
-                                    const SizedBox(height: 10),
                                   ],
                                 ),
                               ),
@@ -127,7 +125,7 @@ class _HomePageState extends State<HomePage>
                                     },
                                     child: Text(article['subTitle']),
                                   ),
-                                  const SizedBox(height: 10), // 添加垂直间距
+                                  const SizedBox(height: 5), // 添加垂直间距
 
                                   Row(
                                     children: [
@@ -189,12 +187,15 @@ class _HomePageState extends State<HomePage>
                                 ],
                               ),
                             ),
-                            const Divider(),
+                            const Divider(
+                              height: 4,
+                            ),
                           ],
                         );
                       } else {
                         return const Column(
                           children: [
+                            SizedBox(height: 8),
                             Text('到底了~'),
                             SizedBox(height: 10),
                           ],

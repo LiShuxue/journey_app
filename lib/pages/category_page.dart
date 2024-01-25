@@ -26,10 +26,10 @@ class _CategoryPageState extends State<CategoryPage>
             return Column(
               children: [
                 Container(
-                  height: 80,
+                  height: 60,
                   alignment: Alignment.center, // 设置子元素上下左右居中
                   padding: const EdgeInsets.only(left: 16),
-                  margin: const EdgeInsets.only(bottom: 10),
+                  margin: const EdgeInsets.only(bottom: 2),
                   decoration: BoxDecoration(
                     border: Border(
                       bottom: BorderSide(
@@ -47,7 +47,6 @@ class _CategoryPageState extends State<CategoryPage>
                     ),
                   ),
                 ),
-                // const Divider(),
               ],
             );
           } else {
@@ -76,12 +75,13 @@ class _CategoryPageState extends State<CategoryPage>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('${category['title']}'),
-                        const SizedBox(height: 10),
                       ],
                     ),
                     subtitle: Text('共${category['list'].length}篇文章'),
                   ),
-                  const Divider(),
+                  const Divider(
+                    height: 4,
+                  ),
                 ],
               ),
             );
