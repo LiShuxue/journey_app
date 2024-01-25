@@ -123,7 +123,12 @@ class _HomePageState extends State<HomePage>
                                     onTap: () {
                                       gotoDetailPage(article);
                                     },
-                                    child: Text(article['subTitle']),
+                                    child: Text(
+                                      article['subTitle'],
+                                      style: TextStyle(
+                                          fontSize: 12, // 设置字体大小
+                                          color: Colors.grey[600]),
+                                    ),
                                   ),
                                   const SizedBox(height: 5), // 添加垂直间距
 

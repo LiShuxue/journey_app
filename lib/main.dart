@@ -91,6 +91,43 @@ class _MainPageState extends State<MainPage> {
       appBar: AppBar(
         title: const Text('Journey'),
       ),
+      // 侧边栏
+      drawer: Drawer(
+        child: ListView(children: [
+          ListTile(
+            title: const Text('主页'),
+            selected: _currentIndex == 0, // active 状态
+            onTap: () {
+              Navigator.pop(context); // 关闭侧边栏
+              _onItemTapped(0); // 切换页面
+            },
+          ),
+          ListTile(
+            title: const Text('分类'),
+            selected: _currentIndex == 1,
+            onTap: () {
+              Navigator.pop(context);
+              _onItemTapped(1);
+            },
+          ),
+          ListTile(
+            title: const Text('发现'),
+            selected: _currentIndex == 2,
+            onTap: () {
+              Navigator.pop(context);
+              _onItemTapped(2);
+            },
+          ),
+          ListTile(
+            title: const Text('关于'),
+            selected: _currentIndex == 3,
+            onTap: () {
+              Navigator.pop(context);
+              _onItemTapped(3);
+            },
+          ),
+        ]),
+      ),
       body: PageView(
         controller: _pageController,
         children: _pages,

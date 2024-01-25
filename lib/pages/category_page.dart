@@ -41,7 +41,7 @@ class _CategoryPageState extends State<CategoryPage>
                     child: Text(
                       '知识要靠一点一滴的积累',
                       style: TextStyle(
-                          fontSize: 20, // 设置字体大小为20
+                          fontSize: 18, // 设置字体大小
                           fontWeight: FontWeight.bold, // 设置字体为粗体
                           color: Colors.grey[600]),
                     ),
@@ -75,9 +75,13 @@ class _CategoryPageState extends State<CategoryPage>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('${category['title']}'),
+                        const SizedBox(height: 2), // 添加垂直间距
                       ],
                     ),
-                    subtitle: Text('共${category['list'].length}篇文章'),
+                    subtitle: Text(
+                      '共${category['list'].length}篇文章',
+                      style: TextStyle(color: Colors.grey[600]),
+                    ),
                   ),
                   const Divider(
                     height: 4,
