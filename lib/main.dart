@@ -73,6 +73,7 @@ class _MainPageState extends State<MainPage> {
     setState(() {
       _currentIndex = index;
       // 切换页面。下列代码需要放在setState中
+      // 当你从第一个页面直接跳转到第四个页面时，第二个和第三个页面的initState方法也会被调用，因为它们都在跳转路径中。
       _pageController.animateToPage(index,
           duration: const Duration(milliseconds: 300), curve: Curves.ease);
     });
