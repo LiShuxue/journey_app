@@ -13,6 +13,7 @@ class _AboutPageState extends State<AboutPage>
   Widget build(BuildContext context) {
     super.build(context);
     return const Scaffold(
+      backgroundColor: Color(0xFFEEEEEE), // 整个页面的背景
       body: Center(
         child: Column(
           // min 尽可能少的占用主轴方向的空间。当子组件没有占满主轴剩余空间时，Row或Column的实际大小等于所有子组件占用的主轴空间。

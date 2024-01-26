@@ -42,10 +42,13 @@ class _CategoryListPageState extends State<CategoryListPage> {
                 });
 
     return Scaffold(
+      backgroundColor: const Color(0xFFEEEEEE), // 整个页面的背景
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: ListView.builder(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 7.0),
+        child: ListView.builder(
           itemCount: target['list'].length,
           itemBuilder: (context, index) {
             final article = target['list'][index];
@@ -132,7 +135,9 @@ class _CategoryListPageState extends State<CategoryListPage> {
                 ),
               ],
             );
-          }),
+          },
+        ),
+      ),
     );
   }
 }

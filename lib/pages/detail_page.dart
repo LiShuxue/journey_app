@@ -44,6 +44,7 @@ class _DetailPageState extends State<DetailPage> {
           ));
     } else {
       return Scaffold(
+        backgroundColor: const Color(0xFFEEEEEE), // 整个页面的背景
         appBar: AppBar(
           title: Text(_blogDetail['title']),
         ),
