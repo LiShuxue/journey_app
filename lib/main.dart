@@ -62,9 +62,9 @@ class _MainPageState extends State<MainPage> {
 
   // PageView的几个子页面，可以左右滑动切换
   final _pages = [
+    const DiscoverPage(),
     const HomePage(),
     const CategoryPage(),
-    const DiscoverPage(),
     const AboutPage(),
   ];
 
@@ -95,7 +95,7 @@ class _MainPageState extends State<MainPage> {
       drawer: Drawer(
         child: ListView(children: [
           ListTile(
-            title: const Text('主页'),
+            title: const Text('发现'),
             selected: _currentIndex == 0, // active 状态
             onTap: () {
               Navigator.pop(context); // 关闭侧边栏
@@ -103,15 +103,15 @@ class _MainPageState extends State<MainPage> {
             },
           ),
           ListTile(
-            title: const Text('分类'),
-            selected: _currentIndex == 1,
+            title: const Text('文章'),
+            selected: _currentIndex == 1, // active 状态
             onTap: () {
-              Navigator.pop(context);
-              _onItemTapped(1);
+              Navigator.pop(context); // 关闭侧边栏
+              _onItemTapped(1); // 切换页面
             },
           ),
           ListTile(
-            title: const Text('发现'),
+            title: const Text('分类'),
             selected: _currentIndex == 2,
             onTap: () {
               Navigator.pop(context);
@@ -137,16 +137,16 @@ class _MainPageState extends State<MainPage> {
         type: BottomNavigationBarType.fixed, // 底部按钮超过3个需要设置这个
         items: const [
           BottomNavigationBarItem(
+            icon: Icon(Icons.lightbulb),
+            label: '发现',
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.article),
-            label: '主页',
+            label: '文章',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.source),
             label: '分类',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.lightbulb),
-            label: '发现',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.perm_identity),
