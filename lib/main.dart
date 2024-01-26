@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:journey_app/pages/home_page.dart';
+import 'package:journey_app/pages/blog_page.dart';
 import 'package:journey_app/pages/category_page.dart';
 import 'package:journey_app/pages/discover_page.dart';
 import 'package:journey_app/pages/about_page.dart';
@@ -63,7 +63,7 @@ class _MainPageState extends State<MainPage> {
   // PageView的几个子页面，可以左右滑动切换
   final _pages = [
     const DiscoverPage(),
-    const HomePage(),
+    const BlogPage(),
     const CategoryPage(),
     const AboutPage(),
   ];

@@ -7,14 +7,14 @@ import 'package:journey_app/pages/detail_page.dart';
 
 import 'package:journey_app/model/blog_list_model.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class BlogPage extends StatefulWidget {
+  const BlogPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<BlogPage> createState() => _BlogPageState();
 }
 
-class _HomePageState extends State<HomePage>
+class _BlogPageState extends State<BlogPage>
     with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
