@@ -1,0 +1,33 @@
+name: Build Android
+
+on: # 在push代码的时候运行此action
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  build: # 代码的打包和部署
+    runs-on: ubuntu-latest # 运行环境，最新ubuntu
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: "temurin" # 这是Eclipse Foundation提供的一个开源的Java发行版，它基于OpenJDK。
+          java-version: "21"
+
+      - uses: subosito/flutter-action@v2 # 使用flutter环境
+        with:
+          flutter-version: "3.16.5"
+          channel: "stable"
+
+      - run: flutter pub get # 安装依赖
+
+      - run: flutter build apk --release # 构建安卓包
+
+      - uses: actions/upload-artifact@v4 # 它用于将文件或目录作为github action工作流的工件上传，上传的工件会保存在GitHub Actions的工作流运行页面上。你可以在工作流运行结束后的一段时间内（通常是90天）下载这些工件。
+        with:
+          name: app-release.apk
+          path: build/app/outputs/flutter-apk/app-release.apk
