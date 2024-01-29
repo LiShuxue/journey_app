@@ -1,5 +1,5 @@
-name: journey_app
-description: "A new Flutter project."
+name: journey_app # 项目的包名
+description: "Journey app"
 publish_to: "none"
 version: 1.0.0
 
