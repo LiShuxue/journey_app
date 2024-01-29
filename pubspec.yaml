@@ -19,6 +19,13 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: ^0.13.1
 
 flutter:
   uses-material-design: true
+
+# 通过命令 flutter pub run flutter_launcher_icons:main ，使用 images/icon1024.png 生成一系列图片
+flutter_icons:
+  image_path: "images/icon1024.png"
+  android: true
+  ios: true
