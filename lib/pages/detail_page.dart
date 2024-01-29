@@ -19,11 +19,13 @@ class _DetailPageState extends State<DetailPage> {
   dynamic _blogDetail;
 
   Future<dynamic> getDetailById(String id) async {
-    Response response = await dio.get('/blog-api/blog/detail?id=$id');
-    dynamic data = response.data['blog'];
-    setState(() {
-      _blogDetail = data;
-    });
+    try {
+      Response response = await dio.get('/blog-api/blog/detail?id=$id');
+      dynamic data = response.data['blog'];
+      setState(() {
+        _blogDetail = data;
+      });
+    } on DioException catch (e) {}
   }
 
   @override

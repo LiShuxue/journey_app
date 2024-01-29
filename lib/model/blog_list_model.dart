@@ -50,13 +50,15 @@ class BlogListModel extends ChangeNotifier {
 
   // 更新博客列表
   getBlogList() async {
-    Response response = await dio.get('/blog-api/blog/list');
-    List<dynamic> list = response.data['blogList'];
+    try {
+      Response response = await dio.get('/blog-api/blog/list');
+      List<dynamic> list = response.data['blogList'];
 
-    _blogList = list;
-    isLoading = false;
-    // 通知widget更新
-    notifyListeners();
+      _blogList = list;
+      isLoading = false;
+      // 通知widget更新
+      notifyListeners();
+    } on DioException catch (e) {}
   }
 
   addLike(article) async {

@@ -17,25 +17,27 @@ class _DiscoverPageState extends State<DiscoverPage>
   bool isLoading = true;
 
   Future<dynamic> getDetailInfo() async {
-    Response response = await dio.get('/blog-api/common/homeinfo');
-    dynamic data = response.data;
-    var imageUrl = data['one']['imageUrl'].replaceAll(
-        'https://image.wufazhuce.com/', 'https://lishuxue.site/oneinfo/');
-    var text = data['one']['text'];
-    var wea = data['wea'];
-    var address = data['address'];
+    try {
+      Response response = await dio.get('/blog-api/common/homeinfo');
+      dynamic data = response.data;
+      var imageUrl = data['one']['imageUrl'].replaceAll(
+          'https://image.wufazhuce.com/', 'https://lishuxue.site/oneinfo/');
+      var text = data['one']['text'];
+      var wea = data['wea'];
+      var address = data['address'];
 
-    var info = {
-      'imageUrl': imageUrl,
-      'text': text,
-      'wea': wea,
-      'address': address,
-    };
+      var info = {
+        'imageUrl': imageUrl,
+        'text': text,
+        'wea': wea,
+        'address': address,
+      };
 
-    setState(() {
-      _detail = info;
-      isLoading = false;
-    });
+      setState(() {
+        _detail = info;
+        isLoading = false;
+      });
+    } on DioException catch (e) {}
   }
 
   @override
