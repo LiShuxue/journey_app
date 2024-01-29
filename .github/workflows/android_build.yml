@@ -16,7 +16,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: "oracle" # 这是oracle提供的一个商业的Java发行版，我们一般安装的都是这个。
-          java-version: "20"
+          java-version: "17"
 
       - uses: subosito/flutter-action@v2 # 使用flutter环境
         with:
