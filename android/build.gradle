@@ -3,14 +3,13 @@
 // buildscript 指定构建脚本需要的插件和其他工具的版本，以及从哪些仓库获取这些依赖项。这些仓库只对构建脚本自身的依赖项生效，对于项目中的模块或子项目的依赖项并不生效。
 buildscript {
     // ext 是 Gradle 中的一种扩展机制，允许你在 build.gradle 文件中定义额外的属性。通过ext定义的属性，可以在同一个build.gradle文件的任何位置使用。
-    ext.kotlin_version = '1.8.22'
+    ext.kotlin_version = '1.7.10'
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.0.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
