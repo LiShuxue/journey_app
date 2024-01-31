@@ -75,9 +75,9 @@ class _CategoryPageState extends State<CategoryPage>
                             leading: SizedBox(
                               width: 100,
                               height: 50,
-                              child: Image.network(
-                                category['url'],
-                                fit: BoxFit.fill,
+                              child: Image(
+                                image: NetworkImage(category['url']),
+                                fit: BoxFit.cover,
                               ),
                             ),
                             title: Column(

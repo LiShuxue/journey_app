@@ -53,8 +53,12 @@ class _DetailPageState extends State<DetailPage> {
         body: ListView(
           children: <Widget>[
             Padding(
-                padding: const EdgeInsets.all(10),
-                child: Image.network(_blogDetail['image']['url'])),
+              padding: const EdgeInsets.all(10),
+              child: Image(
+                image: NetworkImage(_blogDetail['image']['url']),
+                fit: BoxFit.cover,
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.only(
                   top: 15, left: 10, right: 10, bottom: 15),

@@ -105,8 +105,8 @@ class _DiscoverPageState extends State<DiscoverPage>
                   // 创建一个具有特定宽高比的元素
                   AspectRatio(
                     aspectRatio: 1.5,
-                    child: Image.network(
-                      _detail['imageUrl'],
+                    child: Image(
+                      image: NetworkImage(_detail['imageUrl']),
                       fit: BoxFit.cover,
                     ),
                   ),

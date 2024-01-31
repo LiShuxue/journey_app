@@ -79,11 +79,11 @@ class _BlogPageState extends State<BlogPage>
                                 onTap: () {
                                   gotoDetailPage(article);
                                 },
-                                child: Image.network(
-                                  article['image']['url'], // 图片URL
-                                  // BoxFit.fill：图片会被拉伸以填充整个容器，可能会导致图片的宽高比发生变化，从而使图片看起来变形。
-                                  // BoxFit.cover：图片会按照其原始宽高比进行缩放，以便完全覆盖整个容器，可能会导致图片的一部分被裁剪掉，但不会发生变形。
-                                  fit: BoxFit.fill,
+                                // BoxFit.fill：图片会被拉伸以填充整个容器，可能会导致图片的宽高比发生变化，从而使图片看起来变形。
+                                // BoxFit.cover：图片会按照其原始宽高比进行缩放，以便完全覆盖整个容器，可能会导致图片的一部分被裁剪掉，但不会发生变形。
+                                child: Image(
+                                  image: NetworkImage(article['image']['url']),
+                                  fit: BoxFit.cover,
                                 ),
                               );
                             },
@@ -108,10 +108,9 @@ class _BlogPageState extends State<BlogPage>
                                   child: SizedBox(
                                     width: 100, // 设置图片宽度
                                     height: 70, // 设置图片高度
-                                    child: Image.network(
-                                      article['image']['url'], // 图片URL
-                                      // BoxFit.fill：图片会被拉伸以填充整个容器，可能会导致图片的宽高比发生变化，从而使图片看起来变形。
-                                      // BoxFit.cover：图片会按照其原始宽高比进行缩放，以便完全覆盖整个容器，可能会导致图片的一部分被裁剪掉，但不会发生变形。
+                                    child: Image(
+                                      image:
+                                          NetworkImage(article['image']['url']),
                                       fit: BoxFit.cover,
                                     ),
                                   ),

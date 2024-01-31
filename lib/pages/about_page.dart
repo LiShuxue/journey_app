@@ -126,8 +126,9 @@ class AboutPage extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
                 // 这个container中元素也是从上到下排列
-                child: Image.network(
-                  'https://cdn.lishuxue.site/resume/images/MyWechat.png',
+                child: const Image(
+                  image: NetworkImage(
+                      'https://cdn.lishuxue.site/resume/images/MyWechat.png'),
                   fit: BoxFit.fill,
                 ),
               ),

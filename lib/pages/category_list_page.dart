@@ -62,8 +62,8 @@ class _CategoryListPageState extends State<CategoryListPage> {
                     child: SizedBox(
                       width: 100, // 设置图片宽度
                       height: 70, // 设置图片高度
-                      child: Image.network(
-                        article['image']['url'], // 图片URL
+                      child: Image(
+                        image: NetworkImage(article['image']['url']),
                         fit: BoxFit.cover,
                       ),
                     ),
