@@ -56,50 +56,40 @@ class _DiscoverPageState extends State<DiscoverPage>
               child: CircularProgressIndicator(),
             )
           : Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 7.0), // 水平方向有个padding
+              // 水平方向有个padding
+              padding: const EdgeInsets.symmetric(horizontal: 7.0),
               // 页面所有的内容从上到下排列
               child: Column(
                 children: [
-                  // 第一个内容是占满整个行的Row，里面用Expanded才能充满。也可以将Container中用width: double.infinity, 填充父元素的空间。
-                  Row(
-                    children: [
-                      Expanded(
-                        // 真正的元素，是这个container
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            color: Color(0xFFF8F8F8),
-                            // borderRadius: BorderRadius.all(Radius.circular(10)),
-                          ),
-                          // 这个container中元素也是从上到下排列
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const SizedBox(height: 10),
-                              Text(
-                                  '${_detail['address']['city']} ${_detail['address']['district']}',
-                                  style: const TextStyle(
-                                      color: Color(0xFF6D6D6D))),
-                              const SizedBox(height: 10),
-                              Text(
-                                  '今日天气：${_detail['wea']['observe']['weather']}',
-                                  style: const TextStyle(
-                                      color: Color(0xFF6D6D6D))),
-                              const SizedBox(height: 10),
-                              Text('${_detail['wea']['observe']['degree']}',
-                                  style: const TextStyle(
-                                      color: Color(0xFF6D6D6D))),
-                              const SizedBox(height: 10),
-                              Text('${_detail['wea']['tips']['observe']['0']}',
-                                  style: const TextStyle(
-                                      color: Color(0xFF6D6D6D))),
-                              const SizedBox(height: 10),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
+                  Container(
+                    padding: const EdgeInsets.all(10.0),
+                    // 用width: double.infinity, 填充父元素的空间。也可以用Row，里面用Expanded来充满。
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFFF8F8F8),
+                      // borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                    // 这个container中元素也是从上到下排列
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const SizedBox(height: 10),
+                        Text(
+                            '${_detail['address']['city']} ${_detail['address']['district']}',
+                            style: const TextStyle(color: Color(0xFF6D6D6D))),
+                        const SizedBox(height: 10),
+                        Text('今日天气：${_detail['wea']['observe']['weather']}',
+                            style: const TextStyle(color: Color(0xFF6D6D6D))),
+                        const SizedBox(height: 10),
+                        Text('${_detail['wea']['observe']['degree']}',
+                            style: const TextStyle(color: Color(0xFF6D6D6D))),
+                        const SizedBox(height: 10),
+                        Text('${_detail['wea']['tips']['observe']['0']}',
+                            style: const TextStyle(color: Color(0xFF6D6D6D))),
+                        const SizedBox(height: 10),
+                      ],
+                    ),
                   ),
 
                   // 创建一个具有特定宽高比的元素
