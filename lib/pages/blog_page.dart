@@ -16,19 +16,14 @@ class BlogPage extends StatefulWidget {
 
 class _BlogPageState extends State<BlogPage>
     with AutomaticKeepAliveClientMixin {
-  // @override
-  // void initState() {
-  //   super.initState();
-
-  //   // initState中应该避免使用context, 因为在initState方法执行时，widget的context可能还没有完全初始化
-  //   Provider.of<BlogListModel>(context, listen: false).getBlogList();
-  // }
-
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    // didChangeDependencies方法会在initState方法之后以及每次widget的依赖关系改变时被调用，因此它是一个更安全的地方来使用context。
-    Provider.of<BlogListModel>(context, listen: false).getBlogList();
+  void initState() {
+    super.initState();
+
+    // initState中应该避免直接使用context, 因为在initState方法执行时，widget的context可能还没有完全初始化，所以需要放在addPostFrameCallback中，这个方法会在当前帧绘制完成后执行回调
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<BlogListModel>(context, listen: false).getBlogList();
+    });
   }
 
   // 进详情页
