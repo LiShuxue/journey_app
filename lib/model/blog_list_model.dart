@@ -52,7 +52,7 @@ class BlogListModel extends ChangeNotifier {
   getBlogList() async {
     try {
       Response response = await dio.get('/blog-api/blog/list');
-      List<dynamic> list = response.data['blogList'];
+      List<dynamic> list = response.data['data'];
 
       _blogList = list;
       isLoading = false;

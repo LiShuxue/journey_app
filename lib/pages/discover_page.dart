@@ -18,12 +18,12 @@ class _DiscoverPageState extends State<DiscoverPage>
 
   Future<dynamic> getDetailInfo() async {
     try {
-      Response response = await dio.get('/blog-api/common/homeinfo');
-      dynamic data = response.data;
+      Response response = await dio.get('/blog-api/common/homeInfo');
+      dynamic data = response.data['data'];
       var imageUrl = data['one']['imageUrl'].replaceAll(
           'https://image.wufazhuce.com/', 'https://lishuxue.site/oneinfo/');
       var text = data['one']['text'];
-      var wea = data['wea'];
+      var wea = data['weather'];
       var address = data['address'];
 
       var info = {
