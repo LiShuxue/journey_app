@@ -11,9 +11,9 @@ jobs:
     runs-on: ubuntu-latest # 运行环境，最新ubuntu
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v6
         with:
           distribution: "oracle" # 这是oracle提供的一个商业的Java发行版，我们一般安装的都是这个。
           java-version: "17"
@@ -27,7 +27,7 @@ jobs:
 
       - run: flutter build apk --release # 构建安卓包
 
-      - uses: actions/upload-artifact@v4 # 它用于将文件或目录作为github action工作流的工件上传，上传的工件会保存在GitHub Actions的工作流运行页面上。你可以在工作流运行结束后的一段时间内（通常是90天）下载这些工件。
+      - uses: actions/upload-artifact@v7 # 它用于将文件或目录作为github action工作流的工件上传，上传的工件会保存在GitHub Actions的工作流运行页面上。你可以在工作流运行结束后的一段时间内（通常是90天）下载这些工件。
         with:
           name: app-release.apk
           path: build/app/outputs/flutter-apk/app-release.apk
